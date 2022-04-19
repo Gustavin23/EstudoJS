@@ -74,12 +74,15 @@ function tabela(){
 
     let saida = "";
 
-    for(var lin = 0; lin <=2; lin++){
-        for (var col = 0; col <= 2; col++){
-            saida += "<span>" + produtos [lin][col] + "</span>"
+    for(var lin = 0; lin <=3; lin++){
+      for (var col = 0; col <= 2; col++){
+        if (lin == 0){
+          saida += "<span class=titulo>" + produtos [lin][col] + "</span>"
+        } else {
+          saida += "<span>" + produtos [lin][col] + "</span>"
         }
-        saida += "<br>";
+      }
+      saida+= "<br>";
     }
     document.getElementById("painel").innerHTML = saida;
-    
 }
