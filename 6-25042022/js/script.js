@@ -1,3 +1,4 @@
+
 function carregarFilmes(){
     // Fazer o carregamento da url com filmes
     /* Usaremos o comando fetch para localizar e carregar os filmes
@@ -10,6 +11,7 @@ function carregarFilmes(){
         dados.results.map((item,ix)=>{
             saida+=`
                 <div>
+                <div id=foto>
                 <img src=https://image.tmdb.org/t/p/w500${item.poster_path}>
                 <p class=voto>${item.vote_average}</p>
                 <h2>${item.title}</h2>
