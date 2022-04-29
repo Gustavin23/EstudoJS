@@ -1,0 +1,19 @@
+{
+  "name": "10-29042022",
+  "version": "1.0.0",
+  "description": "Produtos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Produtos",
+    "node"
+  ],
+  "author": "Gustavo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.3.1"
+  }
+}
