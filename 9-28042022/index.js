@@ -41,20 +41,22 @@ const tabela = mongoose.Schema({
     telefone:{type:String},
     cidades:{type:String}
 });
-
 const Cliente = mongoose.model("tbcliente",tabela);
 
 // Definição de uma rota padrão
 const default_route = "/api/cliente";
 
 // Rota para listar os clientes com endpoint listar
-app.get(`${default_route}/listar`,(req,res)=>{
-    res.status(200).send({output:`Rota GET`});
+app.get(`${default_route}/listar`,(req,res)=>{  
+    Cliente.find().then((dados)=>{      
+        res.status(200).send({output:dados});
+    })
+    .catch((erro)=>res.status(500).send({output:`Erro inteirno ao processar a consulta -> ${erro}`}));
+
 });
 
 // Rota para cadastrar os clientes com endpoint cadastrar
 app.post(`${default_route}/cadastrar`,(req, res)=>{
-    
     const cli = new Cliente(req.body);
     cli.save().then((dados)=>{
         res.status(201).send({output:`Cadastro realizado`, payload:dados})
@@ -66,12 +68,21 @@ app.post(`${default_route}/cadastrar`,(req, res)=>{
 /* Atualizar passagem de argumentos pela url com o
 id do cliente*/
 app.put(`${default_route}/atualizar/:id`,(req, res)=>{
-    res.status(200).send({output:req.params.id});
+    Cliente.findByIdAndUpdate(req.params.id,req.body,{new:true},(erro,dados)=>{
+        if(erro){
+            return res.status(500).send({output:`Não atualizou -> ${erro}`});
+        }
+        res.status(200).send({output:"Dados atualizados"})
+    })
 });
 
 // Rota para apagar cliente com endpoint deletar    
 app.delete(`${default_route}/apagar/:id`,(req, res)=>{
-    res.status(204).send({output:req.params.id});
+    Cliente.findByIdAndDelete(req.params.id,(erro,dados)=>{
+        if(erro){return res.status(500).send({output:`Erro ao tentar apagar -> ${erro}`});
+    }
+    res.status(204).send({output:`Apagou`});
+    });
 });
 
 // Definir a porta de comunicação do servidor
